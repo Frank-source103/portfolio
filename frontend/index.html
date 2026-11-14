@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Okay Frank | Frontend Developer</title>
 <meta name="description" content="Okay Frank - Frontend developer growing into backend. Projects, skills and contact.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='12' fill='%232F5BFF'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='16' font-weight='700' fill='%23FFFFFF' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Okay Frank | Frontend Developer Growing into Backend">
+<meta property="og:description" content="Building thoughtful web interfaces and growing into backend systems and APIs.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="photo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Okay Frank | Frontend Developer Growing into Backend">
+<meta name="twitter:description" content="Building thoughtful web interfaces and growing into backend systems and APIs.">
+<meta name="twitter:image" content="photo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -383,6 +392,42 @@ section {
   line-height: 1.6;
 }
 
+.arch-box {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-16);
+  margin-top: var(--space-16);
+}
+
+.arch-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.arch-summary svg {
+  transition: transform 0.15s ease;
+}
+
+.arch-box[open] .arch-summary svg {
+  transform: rotate(180deg);
+}
+
+.arch-list {
+  margin: var(--space-16) 0 0 0;
+  padding-left: var(--space-24);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
 .card-bottom {
   display: flex;
   flex-direction: column;
@@ -505,6 +550,33 @@ section {
   flex-direction: column;
 }
 
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.contact-row .contact-entry {
+  border-top: none;
+  flex: 1;
+}
+
+.copy-btn {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  height: 36px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.copy-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 .contact-entry {
   display: flex;
   justify-content: space-between;
@@ -615,6 +687,34 @@ footer .footer-in {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.api-health {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.health-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius);
+  background-color: var(--muted);
+  transition: background-color 0.2s ease;
+}
+
+.health-dot.live {
+  background-color: var(--accent);
 }
 
 @media (max-width: 900px) {
@@ -774,9 +874,15 @@ footer .footer-in {
       <div class="contact-info">
         <p>Email is the quickest way to reach me.</p>
         <div class="contact-list">
-          <a class="contact-entry" href="mailto:francium2008@gmail.com">
-            Email <span>francium2008@gmail.com</span>
-          </a>
+          <div class="contact-row">
+            <a class="contact-entry" href="mailto:francium2008@gmail.com">
+              Email <span>francium2008@gmail.com</span>
+            </a>
+            <button class="btn btn-sm copy-btn" id="copy-email-btn" type="button" aria-label="Copy email address" title="Copy email address">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+              <span id="copy-email-text">Copy</span>
+            </button>
+          </div>
           <a class="contact-entry" href="https://github.com/frank-source103" target="_blank" rel="noopener noreferrer">
             GitHub <span>frank-source103</span>
           </a>
@@ -813,8 +919,14 @@ footer .footer-in {
 
 <footer>
   <div class="wrap footer-in">
-    <span>&copy; 2026 Okay Frank</span>
-    <span class="mono">frank-source103</span>
+    <div class="footer-left">
+      <span>&copy; 2026 Okay Frank</span>
+      <span class="mono">frank-source103</span>
+    </div>
+    <div class="api-health mono" id="api-health">
+      <span class="status-dot health-dot" id="health-dot"></span>
+      <span id="health-label">API Status: Checking...</span>
+    </div>
   </div>
 </footer>
 
@@ -833,7 +945,12 @@ footer .footer-in {
         { label: "Code", url: "https://github.com/frank-source103/school-result-management-system" }
       ],
       featured: true,
-      colClass: "featured"
+      colClass: "featured",
+      architecture: [
+        "Relational Schema: PostgreSQL + Prisma ORM structuring students, courses, enrollments, and academic sessions with cascading integrity.",
+        "Classification Engine: Server-side cumulative GPA computation and degree tier classification algorithms eliminating manual grade processing.",
+        "Access Isolation: Role-based separation (RBAC) ensuring administrative mark entry is protected while students query published results."
+      ]
     },
     {
       title: "School Result Management System V1",
@@ -919,6 +1036,22 @@ footer .footer-in {
         return '<span class="chip">' + t + '</span>';
       }).join('');
 
+      var archHtml = '';
+      if (Array.isArray(proj.architecture) && proj.architecture.length > 0) {
+        var archItems = proj.architecture.map(function(item) {
+          return '<li>' + item + '</li>';
+        }).join('');
+        archHtml = (
+          '<details class="arch-box">' +
+            '<summary class="arch-summary mono">' +
+              '<span>Architecture highlights</span>' +
+              '<svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>' +
+            '</summary>' +
+            '<ul class="arch-list">' + archItems + '</ul>' +
+          '</details>'
+        );
+      }
+
       var linkButtons = '';
       if (proj.liveUrl && proj.liveUrl.trim().length > 0) {
         linkButtons += '<a class="btn btn-sm main magnetic" href="' + proj.liveUrl + '" target="_blank" rel="noopener noreferrer">Live demo</a>';
@@ -943,6 +1076,7 @@ footer .footer-in {
               '</span>' +
             '</div>' +
             '<p class="card-desc">' + proj.description + '</p>' +
+            archHtml +
           '</div>' +
           '<div class="card-bottom">' +
             '<div class="tech-chips">' + techChips + '</div>' +
@@ -1011,7 +1145,6 @@ footer .footer-in {
   });
 
   // 3. Motion System (Hero symbols, magnetic buttons, card tilt)
-  // All strictly disabled under prefers-reduced-motion
   var isFinePointer = window.matchMedia('(pointer: fine)').matches;
   var isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1094,9 +1227,8 @@ footer .footer-in {
     renderCanvas();
   }
 
-  // Magnetic Buttons & Card Tilt (Desktop only, max 6deg tilt, off for reduced motion)
+  // Magnetic Buttons & Card Tilt
   if (isFinePointer) {
-    // Magnetic Buttons
     var magneticBtns = [].slice.call(document.querySelectorAll('.magnetic'));
     window.addEventListener('pointermove', function(e) {
       if (isReducedMotion) return;
@@ -1118,7 +1250,6 @@ footer .footer-in {
       });
     });
 
-    // Project Card Tilt (strictly capped at max 6 degrees)
     var cards = [].slice.call(document.querySelectorAll('.proj-card'));
     cards.forEach(function(card) {
       card.addEventListener('pointermove', function(e) {
@@ -1136,7 +1267,44 @@ footer .footer-in {
     });
   }
 
-  // 4. Contact Form Integration (Preserved exact behavior with updated microcopy)
+  // 4. Copy Email Action
+  var copyBtn = document.getElementById('copy-email-btn');
+  var copyText = document.getElementById('copy-email-text');
+  if (copyBtn && copyText) {
+    copyBtn.addEventListener('click', function() {
+      var addr = 'francium2008@gmail.com';
+      function notify() {
+        copyText.textContent = 'Copied!';
+        setTimeout(function() { copyText.textContent = 'Copy'; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).then(notify).catch(notify);
+      } else {
+        notify();
+      }
+    });
+  }
+
+  // 5. API Health Check
+  (async function checkHealth() {
+    var label = document.getElementById('health-label');
+    var dot = document.getElementById('health-dot');
+    if (!label || !dot) return;
+    try {
+      var base = typeof API_URL !== 'undefined' ? API_URL : 'https://portfolio-amlc.onrender.com';
+      var res = await fetch(base + '/health');
+      if (res.ok) {
+        label.textContent = 'API Status: Operational';
+        dot.className = 'status-dot health-dot live';
+      } else {
+        label.textContent = 'API Status: Standby';
+      }
+    } catch(e) {
+      label.textContent = 'API Status: Standby';
+    }
+  })();
+
+  // 6. Contact Form Integration
   var form = document.getElementById('cf');
   var statusEl = document.getElementById('cf-status');
   var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
