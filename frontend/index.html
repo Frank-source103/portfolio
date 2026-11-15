@@ -21,19 +21,29 @@
 :root {
   --bg: #F7F6F2;
   --surface: #FFFFFF;
+  --surface-sub: #F0EFEA;
   --text: #14171F;
   --muted: #5B6270;
   --border: #E5E3DC;
+  --border-sub: #D8D5CD;
   --accent: #2F5BFF;
+  --accent-hov: #1E45DB;
   --on-accent: #FFFFFF;
+  --error: #DC2626;
+  --success: #16A34A;
   --space-4: 4px;
   --space-8: 8px;
+  --space-12: 12px;
   --space-16: 16px;
   --space-24: 24px;
   --space-32: 32px;
   --space-48: 48px;
   --space-64: 64px;
   --space-96: 96px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
   --radius: 12px;
   color-scheme: light;
   box-sizing: border-box;
@@ -43,11 +53,16 @@
   :root:not([data-theme="light"]) {
     --bg: #0E1116;
     --surface: #161A22;
+    --surface-sub: #1D222D;
     --text: #ECEDEF;
     --muted: #9AA1AE;
     --border: #262B36;
+    --border-sub: #323846;
     --accent: #6B8CFF;
+    --accent-hov: #8BA5FF;
     --on-accent: #0E1116;
+    --error: #F87171;
+    --success: #4ADE80;
     color-scheme: dark;
   }
 }
@@ -55,22 +70,32 @@
 :root[data-theme="dark"] {
   --bg: #0E1116;
   --surface: #161A22;
+  --surface-sub: #1D222D;
   --text: #ECEDEF;
   --muted: #9AA1AE;
   --border: #262B36;
+  --border-sub: #323846;
   --accent: #6B8CFF;
+  --accent-hov: #8BA5FF;
   --on-accent: #0E1116;
+  --error: #F87171;
+  --success: #4ADE80;
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
   --bg: #F7F6F2;
   --surface: #FFFFFF;
+  --surface-sub: #F0EFEA;
   --text: #14171F;
   --muted: #5B6270;
   --border: #E5E3DC;
+  --border-sub: #D8D5CD;
   --accent: #2F5BFF;
+  --accent-hov: #1E45DB;
   --on-accent: #FFFFFF;
+  --error: #DC2626;
+  --success: #16A34A;
   color-scheme: light;
 }
 
@@ -92,6 +117,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  text-wrap: pretty;
 }
 
 h1, h2, h3 {
@@ -101,6 +127,7 @@ h1, h2, h3 {
   line-height: 1.1;
   margin: 0;
   color: var(--text);
+  text-wrap: balance;
 }
 
 a {
@@ -110,12 +137,13 @@ a {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
 }
 
 .mono {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .wrap {
@@ -162,7 +190,7 @@ nav a.nav-item {
   color: var(--muted);
   font-size: 16px;
   font-weight: 500;
-  transition: color 0.15s ease;
+  transition: color 150ms ease-out;
 }
 
 nav a.nav-item:hover {
@@ -173,22 +201,26 @@ nav a.nav-item:hover {
   display: inline-flex;
   align-items: center;
   gap: var(--space-8);
-  height: 40px;
+  min-height: 44px;
   padding-left: var(--space-16);
   padding-right: var(--space-16);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background-color: var(--surface);
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.15s ease;
+  transition: border-color 150ms ease-out, transform 150ms ease-out;
 }
 
 .tgl-btn:hover {
-  border-color: var(--accent);
+  border-color: var(--border-sub);
+}
+
+.tgl-btn:active {
+  transform: scale(0.98);
 }
 
 .btn {
@@ -196,12 +228,13 @@ nav a.nav-item:hover {
   align-items: center;
   justify-content: center;
   gap: var(--space-8);
-  padding-top: var(--space-16);
-  padding-bottom: var(--space-16);
+  min-height: 48px;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
   padding-left: var(--space-24);
   padding-right: var(--space-24);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background-color: var(--surface);
   color: var(--text);
   font-family: 'Inter', sans-serif;
@@ -210,6 +243,15 @@ nav a.nav-item:hover {
   text-decoration: none;
   cursor: pointer;
   will-change: transform;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.btn:hover {
+  border-color: var(--border-sub);
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn.main {
@@ -219,7 +261,9 @@ nav a.nav-item:hover {
 }
 
 .btn.main:hover {
-  opacity: 0.92;
+  background-color: var(--accent-hov);
+  border-color: var(--accent-hov);
+  opacity: 0.96;
 }
 
 .btn:disabled {
@@ -228,6 +272,7 @@ nav a.nav-item:hover {
 }
 
 .btn-sm {
+  min-height: 44px;
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
   padding-left: var(--space-16);
@@ -262,9 +307,9 @@ nav a.nav-item:hover {
 }
 
 .role-line {
-  color: var(--accent);
-  font-weight: 500;
+  color: var(--muted);
   font-size: 16px;
+  font-weight: 500;
   margin-top: 0;
   margin-bottom: var(--space-16);
 }
@@ -283,7 +328,7 @@ nav a.nav-item:hover {
   line-height: 1.5;
   margin-top: 0;
   margin-bottom: var(--space-32);
-  max-width: 580px;
+  max-width: 68ch;
 }
 
 .hero-action {
@@ -315,7 +360,7 @@ section {
 .proj-card {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: var(--space-24);
   display: flex;
   flex-direction: column;
@@ -323,12 +368,16 @@ section {
   position: relative;
   transform-style: preserve-3d;
   will-change: transform;
+  transition: border-color 150ms ease-out, background-color 150ms ease-out;
+}
+
+.proj-card:hover {
+  border-color: var(--border-sub);
 }
 
 .proj-card.featured {
   grid-column: span 12;
   padding: var(--space-32);
-  border-color: var(--accent);
 }
 
 .proj-card.span-7 {
@@ -370,6 +419,7 @@ section {
   gap: var(--space-8);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -377,8 +427,8 @@ section {
 .status-dot {
   width: 8px;
   height: 8px;
-  border-radius: var(--radius);
-  background-color: var(--accent);
+  border-radius: var(--radius-full);
+  background-color: var(--success);
 }
 
 .status-badge.in-progress .status-dot {
@@ -390,6 +440,7 @@ section {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.6;
+  max-width: 68ch;
 }
 
 .arch-box {
@@ -403,14 +454,20 @@ section {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  color: var(--accent);
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
   user-select: none;
+  transition: color 150ms ease-out;
+}
+
+.arch-summary:hover {
+  color: var(--text);
 }
 
 .arch-summary svg {
-  transition: transform 0.15s ease;
+  transition: transform 150ms ease-out;
 }
 
 .arch-box[open] .arch-summary svg {
@@ -426,6 +483,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
+  max-width: 68ch;
 }
 
 .card-bottom {
@@ -447,9 +505,10 @@ section {
   padding-left: var(--space-8);
   padding-right: var(--space-8);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
   color: var(--text);
   background-color: var(--bg);
 }
@@ -471,7 +530,7 @@ section {
   width: 100%;
   max-width: 280px;
   aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
   background-color: var(--surface);
@@ -482,7 +541,7 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
 }
 
 .about-text p {
@@ -490,7 +549,7 @@ section {
   margin-bottom: var(--space-16);
   font-size: 16px;
   color: var(--muted);
-  max-width: 580px;
+  max-width: 68ch;
 }
 
 .about-text p:first-child {
@@ -543,6 +602,7 @@ section {
   font-size: 16px;
   margin-top: 0;
   margin-bottom: var(--space-32);
+  max-width: 68ch;
 }
 
 .contact-list {
@@ -566,29 +626,41 @@ section {
 .copy-btn {
   background-color: var(--surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   color: var(--muted);
   cursor: pointer;
-  height: 36px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  min-height: 44px;
+  min-width: 44px;
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 150ms ease-out, border-color 150ms ease-out, transform 150ms ease-out;
 }
 
 .copy-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--text);
+  border-color: var(--border-sub);
+}
+
+.copy-btn:active {
+  transform: scale(0.98);
 }
 
 .contact-entry {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--space-16);
-  padding-bottom: var(--space-16);
+  min-height: 48px;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
   border-top: 1px solid var(--border);
   text-decoration: none;
   color: var(--text);
   font-size: 16px;
   font-weight: 500;
-  transition: color 0.15s ease;
+  transition: color 150ms ease-out;
 }
 
 .contact-entry:last-child {
@@ -603,12 +675,13 @@ section {
   color: var(--muted);
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .contact-form-box {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: var(--space-32);
 }
 
@@ -637,13 +710,19 @@ section {
   width: 100%;
   padding: var(--space-16);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   background-color: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  transition: border-color 0.15s ease;
+  transition: border-color 150ms ease-out;
+}
+
+.cf input::placeholder,
+.cf textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
 }
 
 .cf input:focus,
@@ -665,15 +744,16 @@ section {
   min-height: 24px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
 
 #cf-status.ok {
-  color: var(--accent);
+  color: var(--success);
 }
 
 #cf-status.err {
-  color: #DC2626;
+  color: var(--error);
 }
 
 footer {
@@ -703,18 +783,19 @@ footer .footer-in {
   gap: var(--space-8);
   color: var(--muted);
   font-size: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .health-dot {
   width: 8px;
   height: 8px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-full);
   background-color: var(--muted);
-  transition: background-color 0.2s ease;
+  transition: background-color 150ms ease-out;
 }
 
 .health-dot.live {
-  background-color: var(--accent);
+  background-color: var(--success);
 }
 
 @media (max-width: 900px) {
@@ -769,7 +850,7 @@ footer .footer-in {
   #hero-canvas {
     display: none !important;
   }
-  .proj-card, .btn {
+  .proj-card, .btn, .tgl-btn, .copy-btn {
     transform: none !important;
   }
 }
@@ -798,7 +879,7 @@ footer .footer-in {
   </nav>
 
   <div class="wrap hero-content">
-    <p class="role-line mono">Frontend developer growing into backend</p>
+    <p class="role-line">Frontend developer growing into backend</p>
     <h1 class="hero-name">Okay Frank</h1>
     <p class="hero-tagline">Building thoughtful web interfaces and growing into backend systems and APIs.</p>
     <div class="hero-action">
@@ -878,7 +959,7 @@ footer .footer-in {
             <a class="contact-entry" href="mailto:francium2008@gmail.com">
               Email <span>francium2008@gmail.com</span>
             </a>
-            <button class="btn btn-sm copy-btn" id="copy-email-btn" type="button" aria-label="Copy email address" title="Copy email address">
+            <button class="copy-btn" id="copy-email-btn" type="button" aria-label="Copy email address" title="Copy email address">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
               <span id="copy-email-text">Copy</span>
             </button>
@@ -1043,9 +1124,9 @@ footer .footer-in {
         }).join('');
         archHtml = (
           '<details class="arch-box">' +
-            '<summary class="arch-summary mono">' +
-              '<span>Architecture highlights</span>' +
-              '<svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>' +
+            '<summary class="arch-summary">' +
+              '<span>Architecture decisions</span>' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>' +
             '</summary>' +
             '<ul class="arch-list">' + archItems + '</ul>' +
           '</details>'
@@ -1054,7 +1135,8 @@ footer .footer-in {
 
       var linkButtons = '';
       if (proj.liveUrl && proj.liveUrl.trim().length > 0) {
-        linkButtons += '<a class="btn btn-sm main magnetic" href="' + proj.liveUrl + '" target="_blank" rel="noopener noreferrer">Live demo</a>';
+        var btnClass = proj.featured ? 'btn btn-sm main magnetic' : 'btn btn-sm magnetic';
+        linkButtons += '<a class="' + btnClass + '" href="' + proj.liveUrl + '" target="_blank" rel="noopener noreferrer">Live demo</a>';
       }
       if (Array.isArray(proj.codeLinks)) {
         proj.codeLinks.forEach(function(link) {
@@ -1152,13 +1234,14 @@ footer .footer-in {
     isReducedMotion = e.matches;
   });
 
-  // Hero Canvas Animation
+  // Hero Canvas Animation (Interactive only - idles completely when pointer is inactive)
   var canvas = document.getElementById('hero-canvas');
   if (canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d');
     var w = 0, h = 0;
     var particles = [];
     var glyphs = ['{', '}', '</>', '=>', ';', '#'];
+    var isAnimating = false;
 
     function resizeCanvas() {
       var rect = canvas.getBoundingClientRect();
@@ -1172,6 +1255,41 @@ footer .footer-in {
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+
+    function tick() {
+      if (isReducedMotion || !isFinePointer) {
+        ctx.clearRect(0, 0, w, h);
+        isAnimating = false;
+        return;
+      }
+
+      ctx.clearRect(0, 0, w, h);
+      var accentColor = getComputedStyle(root).getPropertyValue('--accent').trim() || '#2F5BFF';
+
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.024;
+
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.font = '500 ' + Math.round(p.size) + 'px "JetBrains Mono", monospace';
+        ctx.fillStyle = accentColor;
+        ctx.globalAlpha = p.alpha;
+        ctx.fillText(p.char, p.x, p.y);
+      }
+      ctx.globalAlpha = 1.0;
+
+      if (particles.length > 0) {
+        requestAnimationFrame(tick);
+      } else {
+        isAnimating = false;
+      }
+    }
 
     var heroEl = document.querySelector('.hero');
     if (heroEl && isFinePointer) {
@@ -1192,39 +1310,14 @@ footer .footer-in {
             size: 14 + Math.random() * 6
           });
           if (particles.length > 36) particles.shift();
+
+          if (!isAnimating) {
+            isAnimating = true;
+            requestAnimationFrame(tick);
+          }
         }
       });
     }
-
-    function renderCanvas() {
-      if (!isReducedMotion && isFinePointer) {
-        ctx.clearRect(0, 0, w, h);
-        var accentColor = getComputedStyle(root).getPropertyValue('--accent').trim() || '#2F5BFF';
-
-        for (var i = particles.length - 1; i >= 0; i--) {
-          var p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          p.alpha -= 0.024;
-
-          if (p.alpha <= 0) {
-            particles.splice(i, 1);
-            continue;
-          }
-
-          ctx.font = '500 ' + Math.round(p.size) + 'px "JetBrains Mono", monospace';
-          ctx.fillStyle = accentColor;
-          ctx.globalAlpha = p.alpha;
-          ctx.fillText(p.char, p.x, p.y);
-        }
-        ctx.globalAlpha = 1.0;
-      } else {
-        ctx.clearRect(0, 0, w, h);
-      }
-      requestAnimationFrame(renderCanvas);
-    }
-
-    renderCanvas();
   }
 
   // Magnetic Buttons & Card Tilt
