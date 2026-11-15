@@ -18,7 +18,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-:root {
+:root,
+:root[data-theme="light"],
+:root[data-palette="indigo"] {
   --bg: #F8FAFC;
   --surface: #FFFFFF;
   --surface-sub: #F1F5F9;
@@ -51,38 +53,6 @@
   --radius: 12px;
   color-scheme: light;
   box-sizing: border-box;
-}
-
-/* Palette 2: Carbon & Emerald (Vercel/Supabase style) */
-:root[data-palette="emerald"] {
-  --bg: #F9FAFB;
-  --surface: #FFFFFF;
-  --surface-sub: #F3F4F6;
-  --text: #111827;
-  --muted: #4B5563;
-  --border: #E5E7EB;
-  --border-sub: #D1D5DB;
-  --accent: #047857;
-  --accent-hov: #065F46;
-  --on-accent: #FFFFFF;
-  --nav-bg: rgba(249, 250, 251, 0.85);
-  --grid-dot: rgba(17, 24, 39, 0.08);
-}
-
-/* Palette 3: Midnight & Cyan (Raycast Dev style) */
-:root[data-palette="cyan"] {
-  --bg: #F8FAFC;
-  --surface: #FFFFFF;
-  --surface-sub: #F0F9FF;
-  --text: #0C4A6E;
-  --muted: #475569;
-  --border: #E0F2FE;
-  --border-sub: #BAE6FD;
-  --accent: #0369A1;
-  --accent-hov: #0284C7;
-  --on-accent: #FFFFFF;
-  --nav-bg: rgba(248, 250, 252, 0.85);
-  --grid-dot: rgba(12, 74, 110, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -127,7 +97,39 @@
   color-scheme: dark;
 }
 
-:root[data-theme="dark"][data-palette="emerald"],
+/* Palette 2: Carbon & Emerald (Vercel/Supabase style) */
+:root[data-palette="emerald"],
+:root[data-theme="light"][data-palette="emerald"] {
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
+  --surface-sub: #F3F4F6;
+  --text: #111827;
+  --muted: #4B5563;
+  --border: #E5E7EB;
+  --border-sub: #D1D5DB;
+  --accent: #047857;
+  --accent-hov: #065F46;
+  --on-accent: #FFFFFF;
+  --nav-bg: rgba(249, 250, 251, 0.85);
+  --grid-dot: rgba(17, 24, 39, 0.08);
+}
+
+:root[data-theme="dark"][data-palette="emerald"] {
+  --bg: #09090B;
+  --surface: #141416;
+  --surface-sub: #1C1C20;
+  --text: #F4F4F5;
+  --muted: #A1A1AA;
+  --border: #27272A;
+  --border-sub: #3F3F46;
+  --accent: #34D399;
+  --accent-hov: #6EE7B7;
+  --on-accent: #09090B;
+  --nav-bg: rgba(9, 9, 11, 0.85);
+  --grid-dot: rgba(244, 244, 245, 0.07);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"])[data-palette="emerald"] {
     --bg: #09090B;
@@ -146,7 +148,39 @@
   }
 }
 
-:root[data-theme="dark"][data-palette="cyan"],
+/* Palette 3: Midnight & Cyan (Raycast Dev style) */
+:root[data-palette="cyan"],
+:root[data-theme="light"][data-palette="cyan"] {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-sub: #F0F9FF;
+  --text: #0C4A6E;
+  --muted: #475569;
+  --border: #E0F2FE;
+  --border-sub: #BAE6FD;
+  --accent: #0369A1;
+  --accent-hov: #0284C7;
+  --on-accent: #FFFFFF;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --grid-dot: rgba(12, 74, 110, 0.08);
+}
+
+:root[data-theme="dark"][data-palette="cyan"] {
+  --bg: #060B14;
+  --surface: #0E1726;
+  --surface-sub: #152238;
+  --text: #F0F9FF;
+  --muted: #94A3B8;
+  --border: #162B4D;
+  --border-sub: #224375;
+  --accent: #38BDF8;
+  --accent-hov: #7DD3FC;
+  --on-accent: #060B14;
+  --nav-bg: rgba(6, 11, 20, 0.85);
+  --grid-dot: rgba(240, 249, 255, 0.07);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"])[data-palette="cyan"] {
     --bg: #060B14;
@@ -163,26 +197,6 @@
     --grid-dot: rgba(240, 249, 255, 0.07);
     color-scheme: dark;
   }
-}
-
-:root[data-theme="light"] {
-  --bg: #F8FAFC;
-  --surface: #FFFFFF;
-  --surface-sub: #F1F5F9;
-  --text: #0F172A;
-  --muted: #475569;
-  --border: #E2E8F0;
-  --border-sub: #CBD5E1;
-  --accent: #4338CA;
-  --accent-hov: #3730A3;
-  --on-accent: #FFFFFF;
-  --error: #DC2626;
-  --success: #16A34A;
-  --nav-bg: rgba(248, 250, 252, 0.85);
-  --grid-dot: rgba(15, 23, 42, 0.08);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  color-scheme: light;
 }
 
 *, *::before, *::after {
