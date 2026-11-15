@@ -1328,7 +1328,7 @@ footer .footer-in {
           <p>I’m a frontend developer expanding into full-stack architecture, focused on building resilient web interfaces backed by reliable server-side systems.</p>
           <p>My approach begins with frontend craft—clean semantic markup, strict 8-point spatial hierarchy, nested corner geometry, and WCAG AA accessibility that feels fluid and instantaneous.</p>
           <p>Rather than treating the user interface as an isolated layer, I build end-to-end applications that solve real operational problems. In the <strong>School Result Management System</strong>, I designed relational schemas in PostgreSQL with Prisma, automated GPA calculation engines, and isolated administrative mark entry behind role-based access. In my <strong>Event Ticketing System</strong>, I implemented concurrency-safe checkout flows and Paystack webhook listeners to guarantee events are never oversold.</p>
-          <p>Beyond full-stack web applications, I explore applied AI and microservices—from engineering a <strong>Structured Data Extractor</strong> with Python and the Claude API that parses messy text into schema-validated JSON, to deploying lightweight <strong>FastAPI services</strong> that validate and route communications behind this site.</p>
+          <p>Beyond traditional full-stack web applications, I engineer autonomous AI agents and multimodal retrieval systems—from <strong>ColDoc</strong>, a financial PDF RAG platform with coordinate-level citation bounding boxes, to <strong>AutoAnalyst</strong>, an autonomous data-science agent with sandboxed Python code execution.</p>
           <p>I care deeply about software that is predictable, fast, and grounded in solid data integrity—from relational database constraints and idempotent webhooks down to sub-100ms UI micro-interactions.</p>
         </div>
 
@@ -1456,6 +1456,57 @@ footer .footer-in {
   // 1. Projects Data Array (fields: title, description, tech, status, liveUrl, codeLinks)
   var projects = [
     {
+      title: "ColDoc — Multimodal PDF RAG with Inline Citations",
+      description: "A multimodal RAG platform for financial and technical documents. Answers carry interactive citations that automatically scroll a custom PDF canvas to the exact source page and draw an animated bounding box around balance sheets, tables, and charts.",
+      tech: ["Next.js", "FastAPI", "Python", "Claude API", "PyMuPDF", "TypeScript"],
+      status: "Live",
+      liveUrl: "https://coldoc.vercel.app",
+      codeLinks: [
+        { label: "Code", url: "https://github.com/Frank-source103/coldoc" }
+      ],
+      featured: true,
+      colClass: "featured",
+      architecture: [
+        "Multimodal Citation Engine: Extracts coordinate-level bounding boxes from PyMuPDF layout analysis and embeds them in AI responses.",
+        "Synchronized PDF Canvas: Automatically scrolls and renders highlight boxes on target PDF pages upon citation click.",
+        "Dual-Engine Architecture: Next.js frontend with streaming chat and FastAPI Python backend for document chunking and vector retrieval."
+      ]
+    },
+    {
+      title: "AutoAnalyst — Autonomous Data-Science Agent",
+      description: "An autonomous AI agent with sandboxed code execution for exploratory data analysis. Users upload CSV or Parquet datasets and query in natural language; the agent plans analysis, profiles data, writes and executes Python in a secure sandbox, and streams interactive charts and summaries.",
+      tech: ["Next.js", "React", "Python", "FastAPI", "Pandas", "Matplotlib"],
+      status: "Live",
+      liveUrl: "https://autoanalyst-frontend.vercel.app",
+      codeLinks: [
+        { label: "Code", url: "https://github.com/Frank-source103/autoanalyst" }
+      ],
+      featured: false,
+      colClass: "span-6",
+      architecture: [
+        "Sandboxed Code Execution: Executes dynamically generated Python data-science code in an isolated environment.",
+        "Autonomous Multi-Step Reasoning: Iterative planning, exploratory data profiling, error recovery, and insight synthesis.",
+        "Streaming Chart Synthesis: Server-rendered visualizations and statistical dataframes delivered directly to the client."
+      ]
+    },
+    {
+      title: "EventPass — Concurrency-Safe Event Ticketing",
+      description: "A full-stack event ticketing platform with real-time Paystack payments, automated QR-code ticket generation, downloadable PDF tickets, check-in scanning verification, and concurrency-safe inventory locking to eliminate overselling.",
+      tech: ["React", "Vite", "Node.js", "Express", "PostgreSQL", "Prisma", "Paystack"],
+      status: "Live",
+      liveUrl: "https://event-ticketing-frontend-one.vercel.app",
+      codeLinks: [
+        { label: "Code", url: "https://github.com/Frank-source103/event-ticketing" }
+      ],
+      featured: false,
+      colClass: "span-6",
+      architecture: [
+        "Concurrency-Safe Checkout: Leverages PostgreSQL and Prisma atomic transactions to lock ticket inventory and prevent overselling during checkout spikes.",
+        "Idempotent Webhook Engine: Reconciles Paystack payment webhooks to guarantee zero duplicate charges and immediate ticket delivery.",
+        "Dynamic QR & PDF Pass Issuance: Generates cryptographically verifiable QR codes and downloadable PDF tickets for door check-in scanning."
+      ]
+    },
+    {
       title: "School Result Management System V2.0",
       description: "A full-stack platform for managing students, courses and results. V2.0 adds a secure student self-service portal, automatic degree classification from cumulative GPA, and one-click printing of official examination statements.",
       tech: ["React", "Vite", "Node.js", "Express", "PostgreSQL", "Prisma"],
@@ -1464,25 +1515,13 @@ footer .footer-in {
       codeLinks: [
         { label: "Code", url: "https://github.com/frank-source103/school-result-management-system" }
       ],
-      featured: true,
-      colClass: "featured",
+      featured: false,
+      colClass: "span-7",
       architecture: [
         "Relational Schema: PostgreSQL + Prisma ORM structuring students, courses, enrollments, and academic sessions with cascading integrity.",
         "Classification Engine: Server-side cumulative GPA computation and degree tier classification algorithms eliminating manual grade processing.",
         "Access Isolation: Role-based separation (RBAC) ensuring administrative mark entry is protected while students query published results."
       ]
-    },
-    {
-      title: "School Result Management System V1",
-      description: "A React interface for the API. Lecturers sign in to add, edit and delete records and import results from Excel, and anyone can view them.",
-      tech: ["React", "Vite"],
-      status: "Live",
-      liveUrl: "https://srm-frontend2.vercel.app",
-      codeLinks: [
-        { label: "Code", url: "https://github.com/frank-source103/srm-frontend" }
-      ],
-      featured: false,
-      colClass: "span-7"
     },
     {
       title: "Student Result Management API",
@@ -1495,30 +1534,6 @@ footer .footer-in {
       ],
       featured: false,
       colClass: "span-5"
-    },
-    {
-      title: "Structured Data Extractor",
-      description: "Turns messy, unstructured text into clean, validated JSON using the Claude API. Built as a weekend AI project with a written case study covering what worked and what failed.",
-      tech: ["Python", "Claude API"],
-      status: "In progress",
-      liveUrl: "",
-      codeLinks: [
-        { label: "Code", url: "" }
-      ],
-      featured: false,
-      colClass: "span-5"
-    },
-    {
-      title: "Event Ticketing with Payments",
-      description: "Ticket sales with test-mode Paystack payments. Webhooks confirm each payment and issue tickets automatically, and ticket sales are concurrency-safe so an event is never oversold.",
-      tech: ["React", "Vite", "Node.js", "Express", "PostgreSQL", "Prisma", "Paystack"],
-      status: "In progress",
-      liveUrl: "",
-      codeLinks: [
-        { label: "Code", url: "" }
-      ],
-      featured: false,
-      colClass: "span-7"
     },
     {
       title: "Contact API",
