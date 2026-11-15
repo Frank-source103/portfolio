@@ -740,14 +740,24 @@ section {
   align-items: start;
 }
 
-.portrait-frame {
-  width: 100%;
+.portrait-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-24);
   max-width: 280px;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-lg);
+}
+
+.portrait-frame {
+  width: 220px;
+  height: 220px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-full);
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   background-color: var(--surface);
+  box-shadow: var(--card-shadow);
+  flex-shrink: 0;
 }
 
 .portrait-frame img {
@@ -755,13 +765,76 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: var(--radius-full);
+}
+
+.portrait-spec {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  box-shadow: var(--card-shadow);
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--border);
+}
+
+.spec-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.spec-label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.spec-val {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.spec-val.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.spec-val.availability .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--success);
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+:root[data-theme="dark"] .spec-val.availability .status-dot {
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.25);
+}
+
+.about-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
 }
 
 .about-text p {
   margin-top: 0;
   margin-bottom: var(--space-16);
   font-size: 16px;
+  line-height: 1.7;
   color: var(--muted);
   max-width: 68ch;
 }
@@ -770,6 +843,58 @@ section {
   font-size: 20px;
   color: var(--text);
   line-height: 1.5;
+  font-weight: 500;
+}
+
+.about-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  margin-top: var(--space-8);
+}
+
+.principle-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  box-shadow: var(--card-shadow);
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.principle-card:hover {
+  border-color: var(--border-sub);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.principle-index {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.principle-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.principle-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
 }
 
 .skills-groups {
@@ -1046,6 +1171,30 @@ footer .footer-in {
 }
 
 @media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-32);
+  }
+  .portrait-col {
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-24);
+  }
+  .portrait-frame {
+    width: 160px;
+    height: 160px;
+    max-width: 160px;
+  }
+  .portrait-spec {
+    flex: 1;
+    min-width: 240px;
+  }
+  .about-principles {
+    grid-template-columns: 1fr;
+  }
   .skills-groups {
     grid-template-columns: 1fr;
   }
@@ -1151,12 +1300,55 @@ footer .footer-in {
       <h2 class="section-title">About</h2>
     </div>
     <div class="about-grid">
-      <div class="portrait-frame">
-        <img src="photo.jpg" alt="Portrait of Okay Frank" width="280" height="350">
+      <div class="portrait-col">
+        <div class="portrait-frame">
+          <img src="photo.jpg" alt="Portrait of Okay Frank" width="220" height="220">
+        </div>
+        <div class="portrait-spec">
+          <div class="spec-item">
+            <span class="spec-label mono">LOCATION</span>
+            <span class="spec-val">Lagos, Nigeria (UTC+1)</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label mono">DISCIPLINE</span>
+            <span class="spec-val">Frontend &amp; Full-Stack Systems</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label mono">CORE STACK</span>
+            <span class="spec-val">React, Node.js, Express, PostgreSQL, Prisma</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label mono">AVAILABILITY</span>
+            <span class="spec-val availability"><span class="status-dot"></span> Open to roles &amp; contracts</span>
+          </div>
+        </div>
       </div>
-      <div class="about-text">
-        <p>I'm a frontend developer who likes turning a design into something people can actually use.</p>
-        <p>I'm learning backend development by building real things, including a school results API with Node.js and Express and the contact form service behind this site.</p>
+      <div class="about-main">
+        <div class="about-text">
+          <p>I’m a frontend developer expanding into full-stack architecture, focused on building resilient web interfaces backed by reliable server-side systems.</p>
+          <p>My approach begins with frontend craft—clean semantic markup, strict 8-point spatial hierarchy, nested corner geometry, and WCAG AA accessibility that feels fluid and instantaneous.</p>
+          <p>Rather than treating the user interface as an isolated layer, I build end-to-end applications that solve real operational problems. In the <strong>School Result Management System</strong>, I designed relational schemas in PostgreSQL with Prisma, automated GPA calculation engines, and isolated administrative mark entry behind role-based access. In my <strong>Event Ticketing System</strong>, I implemented concurrency-safe checkout flows and Paystack webhook listeners to guarantee events are never oversold.</p>
+          <p>Beyond full-stack web applications, I explore applied AI and microservices—from engineering a <strong>Structured Data Extractor</strong> with Python and the Claude API that parses messy text into schema-validated JSON, to deploying lightweight <strong>FastAPI services</strong> that validate and route communications behind this site.</p>
+          <p>I care deeply about software that is predictable, fast, and grounded in solid data integrity—from relational database constraints and idempotent webhooks down to sub-100ms UI micro-interactions.</p>
+        </div>
+
+        <div class="about-principles">
+          <div class="principle-card">
+            <div class="principle-index mono">01 // CRAFT &amp; A11Y</div>
+            <h3 class="principle-title">Pixel &amp; Token Discipline</h3>
+            <p class="principle-desc">Strict 8pt spatial cadence, nested corner geometry, keyboard navigation, and WCAG AA contrast by default.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-index mono">02 // ARCHITECTURE</div>
+            <h3 class="principle-title">Schema &amp; Data Integrity</h3>
+            <p class="principle-desc">Relational constraints, cascading database safety, concurrency-safe transactions, and server-side validation over client assumptions.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-index mono">03 // PERFORMANCE</div>
+            <h3 class="principle-title">Speed &amp; Tactile Feedback</h3>
+            <p class="principle-desc">Lean codebases, zero unnecessary abstraction bloat, sub-100ms micro-interactions, and instant page response.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
