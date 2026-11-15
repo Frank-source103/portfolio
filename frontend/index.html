@@ -19,18 +19,22 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --bg: #F7F6F2;
+  --bg: #F8FAFC;
   --surface: #FFFFFF;
-  --surface-sub: #F0EFEA;
-  --text: #14171F;
-  --muted: #5B6270;
-  --border: #E5E3DC;
-  --border-sub: #D8D5CD;
-  --accent: #2F5BFF;
-  --accent-hov: #1E45DB;
+  --surface-sub: #F1F5F9;
+  --text: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --border-sub: #CBD5E1;
+  --accent: #4338CA;
+  --accent-hov: #3730A3;
   --on-accent: #FFFFFF;
   --error: #DC2626;
   --success: #16A34A;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --grid-dot: rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   --space-4: 4px;
   --space-8: 8px;
   --space-12: 12px;
@@ -49,53 +53,135 @@
   box-sizing: border-box;
 }
 
+/* Palette 2: Carbon & Emerald (Vercel/Supabase style) */
+:root[data-palette="emerald"] {
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
+  --surface-sub: #F3F4F6;
+  --text: #111827;
+  --muted: #4B5563;
+  --border: #E5E7EB;
+  --border-sub: #D1D5DB;
+  --accent: #047857;
+  --accent-hov: #065F46;
+  --on-accent: #FFFFFF;
+  --nav-bg: rgba(249, 250, 251, 0.85);
+  --grid-dot: rgba(17, 24, 39, 0.08);
+}
+
+/* Palette 3: Midnight & Cyan (Raycast Dev style) */
+:root[data-palette="cyan"] {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-sub: #F0F9FF;
+  --text: #0C4A6E;
+  --muted: #475569;
+  --border: #E0F2FE;
+  --border-sub: #BAE6FD;
+  --accent: #0369A1;
+  --accent-hov: #0284C7;
+  --on-accent: #FFFFFF;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --grid-dot: rgba(12, 74, 110, 0.08);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0E1116;
-    --surface: #161A22;
-    --surface-sub: #1D222D;
-    --text: #ECEDEF;
-    --muted: #9AA1AE;
-    --border: #262B36;
-    --border-sub: #323846;
-    --accent: #6B8CFF;
-    --accent-hov: #8BA5FF;
-    --on-accent: #0E1116;
+    --bg: #0B0D13;
+    --surface: #131620;
+    --surface-sub: #1A1E2B;
+    --text: #F8FAFC;
+    --muted: #94A3B8;
+    --border: #1E2433;
+    --border-sub: #2E384D;
+    --accent: #818CF8;
+    --accent-hov: #A5B4FC;
+    --on-accent: #0B0D13;
     --error: #F87171;
     --success: #4ADE80;
+    --nav-bg: rgba(11, 13, 19, 0.85);
+    --grid-dot: rgba(248, 250, 252, 0.07);
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0E1116;
-  --surface: #161A22;
-  --surface-sub: #1D222D;
-  --text: #ECEDEF;
-  --muted: #9AA1AE;
-  --border: #262B36;
-  --border-sub: #323846;
-  --accent: #6B8CFF;
-  --accent-hov: #8BA5FF;
-  --on-accent: #0E1116;
+  --bg: #0B0D13;
+  --surface: #131620;
+  --surface-sub: #1A1E2B;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --border: #1E2433;
+  --border-sub: #2E384D;
+  --accent: #818CF8;
+  --accent-hov: #A5B4FC;
+  --on-accent: #0B0D13;
   --error: #F87171;
   --success: #4ADE80;
+  --nav-bg: rgba(11, 13, 19, 0.85);
+  --grid-dot: rgba(248, 250, 252, 0.07);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   color-scheme: dark;
 }
 
+:root[data-theme="dark"][data-palette="emerald"],
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-palette="emerald"] {
+    --bg: #09090B;
+    --surface: #141416;
+    --surface-sub: #1C1C20;
+    --text: #F4F4F5;
+    --muted: #A1A1AA;
+    --border: #27272A;
+    --border-sub: #3F3F46;
+    --accent: #34D399;
+    --accent-hov: #6EE7B7;
+    --on-accent: #09090B;
+    --nav-bg: rgba(9, 9, 11, 0.85);
+    --grid-dot: rgba(244, 244, 245, 0.07);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"][data-palette="cyan"],
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-palette="cyan"] {
+    --bg: #060B14;
+    --surface: #0E1726;
+    --surface-sub: #152238;
+    --text: #F0F9FF;
+    --muted: #94A3B8;
+    --border: #162B4D;
+    --border-sub: #224375;
+    --accent: #38BDF8;
+    --accent-hov: #7DD3FC;
+    --on-accent: #060B14;
+    --nav-bg: rgba(6, 11, 20, 0.85);
+    --grid-dot: rgba(240, 249, 255, 0.07);
+    color-scheme: dark;
+  }
+}
+
 :root[data-theme="light"] {
-  --bg: #F7F6F2;
+  --bg: #F8FAFC;
   --surface: #FFFFFF;
-  --surface-sub: #F0EFEA;
-  --text: #14171F;
-  --muted: #5B6270;
-  --border: #E5E3DC;
-  --border-sub: #D8D5CD;
-  --accent: #2F5BFF;
-  --accent-hov: #1E45DB;
+  --surface-sub: #F1F5F9;
+  --text: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --border-sub: #CBD5E1;
+  --accent: #4338CA;
+  --accent-hov: #3730A3;
   --on-accent: #FFFFFF;
   --error: #DC2626;
   --success: #16A34A;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --grid-dot: rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 8px 30px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   color-scheme: light;
 }
 
@@ -111,6 +197,9 @@ html {
 body {
   margin: 0;
   background-color: var(--bg);
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -12px -12px;
   color: var(--text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
@@ -156,13 +245,18 @@ a {
 }
 
 nav {
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
-  padding-top: var(--space-24);
-  padding-bottom: var(--space-24);
+  z-index: 50;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background-color 150ms ease-out, border-color 150ms ease-out;
 }
 
 nav .nav-in {
@@ -171,18 +265,85 @@ nav .nav-in {
   align-items: center;
 }
 
+.brand-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
 .brand-link {
   font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   font-weight: 700;
   font-size: 20px;
   text-decoration: none;
   letter-spacing: -0.02em;
+  color: var(--text);
 }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-8);
+  background: var(--surface-sub);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-pill .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--success);
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+:root[data-theme="dark"] .status-pill .status-dot {
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.25);
+}
+
+.palette-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.palette-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  outline-offset: 2px;
+  transition: transform 150ms ease-out, border-color 150ms ease-out;
+}
+
+.palette-btn:hover {
+  transform: scale(1.15);
+}
+
+.palette-btn[aria-checked="true"] {
+  border-color: var(--text);
+  transform: scale(1.1);
+}
+
+.palette-btn[data-scheme="indigo"] { background-color: #6366F1; }
+.palette-btn[data-scheme="emerald"] { background-color: #10B981; }
+.palette-btn[data-scheme="cyan"] { background-color: #0284C7; }
 
 nav .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--space-24);
+  gap: var(--space-16);
 }
 
 nav a.nav-item {
@@ -282,7 +443,7 @@ nav a.nav-item:hover {
 
 .hero {
   position: relative;
-  min-height: 88vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -301,21 +462,38 @@ nav a.nav-item:hover {
 .hero-content {
   position: relative;
   z-index: 2;
-  padding-top: var(--space-96);
+  padding-top: var(--space-64);
   padding-bottom: var(--space-64);
   max-width: 760px;
 }
 
-.role-line {
-  color: var(--muted);
-  font-size: 16px;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
   font-weight: 500;
-  margin-top: 0;
-  margin-bottom: var(--space-16);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: var(--space-4) var(--space-12);
+  background: var(--surface-sub);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-24);
+}
+
+.hero-badge .badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
 }
 
 .hero-name {
-  font-size: 64px;
+  font-size: clamp(40px, 7vw, 68px);
+  font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.05;
   margin-top: 0;
@@ -333,7 +511,9 @@ nav a.nav-item:hover {
 
 .hero-action {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-16);
+  align-items: center;
 }
 
 section {
@@ -344,11 +524,23 @@ section {
 
 .section-head {
   margin-bottom: var(--space-48);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-index {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: var(--space-8);
 }
 
 .section-title {
-  font-size: 28px;
-  letter-spacing: -0.02em;
+  font-size: 32px;
+  letter-spacing: -0.025em;
 }
 
 .projects-layout {
@@ -366,18 +558,21 @@ section {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+  box-shadow: var(--card-shadow);
   transform-style: preserve-3d;
   will-change: transform;
-  transition: border-color 150ms ease-out, background-color 150ms ease-out;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out, background-color 150ms ease-out;
 }
 
 .proj-card:hover {
   border-color: var(--border-sub);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .proj-card.featured {
   grid-column: span 12;
   padding: var(--space-32);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-sub) 100%);
 }
 
 .proj-card.span-7 {
@@ -507,10 +702,15 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
   color: var(--text);
-  background-color: var(--bg);
+  background-color: var(--surface-sub);
+  transition: border-color 150ms ease-out, background-color 150ms ease-out;
+}
+
+.chip:hover {
+  border-color: var(--border-sub);
 }
 
 .card-links {
@@ -559,29 +759,40 @@ section {
 }
 
 .skills-groups {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-32);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-24);
 }
 
 .skill-row {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: var(--space-24);
-  padding-top: var(--space-24);
-  padding-bottom: var(--space-24);
-  border-top: 1px solid var(--border);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  box-shadow: var(--card-shadow);
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
 }
 
-.skill-row:last-child {
-  border-bottom: 1px solid var(--border);
+.skill-row:hover {
+  border-color: var(--border-sub);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .skill-label {
-  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid var(--border);
 }
 
 .skill-chips {
@@ -820,6 +1031,15 @@ footer .footer-in {
   }
 }
 
+@media (max-width: 768px) {
+  .skills-groups {
+    grid-template-columns: 1fr;
+  }
+  .status-pill {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   nav .nav-links a.nav-item {
     display: none;
@@ -858,32 +1078,41 @@ footer .footer-in {
 </head>
 <body>
 
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand-group">
+      <a class="brand-link" href="#">Okay Frank</a>
+      <span class="status-pill"><span class="status-dot"></span> Available for work</span>
+    </div>
+    <div class="nav-links">
+      <a class="nav-item" href="#projects">Projects</a>
+      <a class="nav-item" href="#about">About</a>
+      <a class="nav-item" href="#skills">Skills</a>
+      <a class="nav-item" href="#contact">Contact</a>
+      <div class="palette-picker" role="radiogroup" aria-label="Color scheme">
+        <button class="palette-btn" data-scheme="indigo" aria-label="Indigo scheme" title="Indigo (Linear)" aria-checked="true"></button>
+        <button class="palette-btn" data-scheme="emerald" aria-label="Emerald scheme" title="Emerald (Vercel)" aria-checked="false"></button>
+        <button class="palette-btn" data-scheme="cyan" aria-label="Cyan scheme" title="Cyan (Raycast)" aria-checked="false"></button>
+      </div>
+      <button class="tgl-btn" id="tgl" type="button" aria-pressed="false">
+        <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+        <span id="theme-text">Dark</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
 <header class="hero">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <nav>
-    <div class="wrap nav-in">
-      <a class="brand-link" href="#">Okay Frank</a>
-      <div class="nav-links">
-        <a class="nav-item" href="#projects">Projects</a>
-        <a class="nav-item" href="#about">About</a>
-        <a class="nav-item" href="#skills">Skills</a>
-        <a class="nav-item" href="#contact">Contact</a>
-        <button class="tgl-btn" id="tgl" type="button" aria-pressed="false">
-          <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-          </svg>
-          <span id="theme-text">Dark</span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
   <div class="wrap hero-content">
-    <p class="role-line">Frontend developer growing into backend</p>
+    <div class="hero-badge"><span class="badge-dot"></span> FRONTEND &amp; BACKEND DEVELOPER • LAGOS, NG</div>
     <h1 class="hero-name">Okay Frank</h1>
     <p class="hero-tagline">Building thoughtful web interfaces and growing into backend systems and APIs.</p>
     <div class="hero-action">
       <a class="btn main magnetic" href="#projects">See projects</a>
+      <a class="btn magnetic" href="#contact">Get in touch</a>
     </div>
   </div>
 </header>
@@ -892,6 +1121,7 @@ footer .footer-in {
 <section id="projects">
   <div class="wrap">
     <div class="section-head">
+      <div class="section-index mono">01 // SELECTED WORK</div>
       <h2 class="section-title">Projects</h2>
     </div>
     <div class="projects-layout" id="projects-container">
@@ -903,6 +1133,7 @@ footer .footer-in {
 <section id="about">
   <div class="wrap">
     <div class="section-head">
+      <div class="section-index mono">02 // BACKGROUND</div>
       <h2 class="section-title">About</h2>
     </div>
     <div class="about-grid">
@@ -920,6 +1151,7 @@ footer .footer-in {
 <section id="skills">
   <div class="wrap">
     <div class="section-head">
+      <div class="section-index mono">03 // CAPABILITIES</div>
       <h2 class="section-title">Skills</h2>
     </div>
     <div class="skills-groups">
@@ -949,6 +1181,7 @@ footer .footer-in {
 <section id="contact">
   <div class="wrap">
     <div class="section-head">
+      <div class="section-index mono">04 // CONNECT</div>
       <h2 class="section-title">Contact</h2>
     </div>
     <div class="contact-grid">
@@ -1169,8 +1402,30 @@ footer .footer-in {
     }).join('');
   }
 
-  // 2. Theme Toggle (respects system setting, remembers choice)
   var root = document.documentElement;
+
+  // Palette Switcher Logic
+  var paletteBtns = document.querySelectorAll('.palette-btn');
+  function setPalette(scheme) {
+    if (!scheme) scheme = 'indigo';
+    root.setAttribute('data-palette', scheme);
+    try { localStorage.setItem('portfolio-palette', scheme); } catch(e) {}
+    paletteBtns.forEach(function(btn) {
+      btn.setAttribute('aria-checked', btn.getAttribute('data-scheme') === scheme ? 'true' : 'false');
+    });
+  }
+
+  paletteBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setPalette(btn.getAttribute('data-scheme'));
+    });
+  });
+
+  var savedPalette = 'indigo';
+  try { savedPalette = localStorage.getItem('portfolio-palette') || 'indigo'; } catch(e) {}
+  setPalette(savedPalette);
+
+  // 2. Theme Toggle (respects system setting, remembers choice)
   var tglBtn = document.getElementById('tgl');
   var themeText = document.getElementById('theme-text');
   var themeIcon = document.getElementById('theme-icon');
