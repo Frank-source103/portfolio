@@ -1,6 +1,6 @@
 # Okay Frank — Portfolio & Contact API
 
-A high-performance, accessible, and editorial portfolio site engineered for technical recruiters and engineering managers. Built with clean semantic HTML, modular CSS tokens, native Canvas motion, and a lightweight Python FastAPI microservice.
+A high-performance, accessible, and editorial portfolio site engineered for technical recruiters and engineering managers. Built with modern **React 18 + TypeScript + Vite + Tailwind CSS**, paired with a lightweight Python FastAPI microservice.
 
 ---
 
@@ -10,39 +10,52 @@ The repository is structured as a decoupled full-stack project:
 
 ```
 ├── frontend/
-│   ├── index.html          # Portfolio application (semantic HTML, CSS tokens, dynamic JS)
-│   ├── config.js           # API URL configuration (bridges frontend to deployed backend)
-│   └── photo.jpg           # Profile image
+│   ├── src/
+│   │   ├── App.tsx          # Main React portfolio component (architecture circuits, projects, about, contact)
+│   │   ├── main.tsx         # React DOM mounting entry point
+│   │   ├── index.css        # Tailwind directives and accessible base styles
+│   │   └── vite-env.d.ts    # Vite environment type declarations
+│   ├── public/
+│   │   ├── photo.jpg        # Profile image (circular display)
+│   │   └── config.js        # Runtime API endpoint configuration
+│   ├── index.html           # Vite HTML application shell
+│   ├── package.json         # React, Vite, and Tailwind dependencies
+│   ├── vite.config.ts       # Vite bundling and dev server configuration
+│   ├── tailwind.config.js   # Tailwind custom typography and color tokens
+│   ├── postcss.config.js    # PostCSS configuration
+│   ├── tsconfig.json        # TypeScript project configuration
+│   └── index.legacy.html    # Backup of legacy standalone HTML file
 ├── backend/
-│   ├── main.py             # FastAPI service (validation, SQLite persistence, Resend email)
-│   ├── requirements.txt    # Python dependencies
-│   ├── .env.example        # Environment variable template
-│   └── .gitignore          # Backend-specific ignore rules
-├── .gitignore              # Root git ignore rules
-└── README.md               # Project documentation
+│   ├── main.py              # FastAPI service (validation, SQLite persistence, Resend email)
+│   ├── requirements.txt     # Python dependencies
+│   ├── .env.example         # Environment variable template
+│   └── .gitignore           # Backend-specific ignore rules
+├── package.json             # Root monorepo script runner
+├── .gitignore               # Root git ignore rules
+└── README.md                # Project documentation
 ```
 
 ---
 
 ## Key Features
 
-### Frontend
+### Frontend (React + TypeScript + Tailwind)
 - **Editorial Design System**:
-  - **Typography**: Bricolage Grotesque (headings, tight tracking), Inter (body readability), and JetBrains Mono (code accents, metadata).
-  - **Palette**: Refined neutral tones in light mode (`#F7F6F2` bg, `#14171F` text) and dark mode (`#0E1116` bg, `#ECEDEF` text) paired with a high-contrast royal blue accent (`#2F5BFF` / `#6B8CFF`). All text combinations strictly exceed WCAG AA contrast standards (≥ 4.5:1).
-  - **Deterministic Geometry**: Consistent 12px border radius across all cards, buttons, inputs, and frames. Strict 8-point spacing scale (`4px` to `96px`).
-- **Accessible Motion System**:
-  - Interactive hero canvas featuring code glyphs (`{ } </> => ; #`) in JetBrains Mono that trail the cursor and fade out.
-  - Physics-based magnetic buttons (< 96px radius) and 3D card tilt (capped at 6°).
-  - Complete zero-animation fallback under `prefers-reduced-motion: reduce` and on touch devices (`pointer: coarse`).
-- **Dynamic Projects Architecture**:
-  - Single data array powering all project cards with zero empty link buttons.
-  - Featured full-width showcase for **School Result Management System V2.0** with an expandable architectural decisions breakdown (PostgreSQL schema, GPA classification engine, RBAC access control).
-  - Varied, asymmetric multi-column grid layout (7+5, 5+7, 6+6) preventing repetitive card patterns.
+  - **Typography**: Newsreader (editorial serif headings), Geist / Inter (body readability), and JetBrains Mono (concurrency circuits, metadata, HTTP status codes).
+  - **Color Tokens**: Industrial Steel ramp (`#0C0E12` to `#2E3543`) with deliberate Signal Ochre accents (`#D97706`). Strictly adheres to WCAG AA contrast (≥ 4.5:1).
+  - **Cropped Circular Photo**: Profile picture framed in a 1:1 circular aspect ratio with a subtle ring.
+  - **Quick Facts Spec Sheet**: Location: **Rivers, Nigeria (UTC+1)**, availability status, and core engineering principles.
+- **Projects & Concurrency Inspector**:
+  - Filterable by domain: *All Systems*, *Multimodal AI & RAG*, *Concurrency & Transactions*, *Relational Systems*.
+  - **ColDoc**: Multimodal PDF RAG with inline citations (`https://coldoc.vercel.app`).
+  - **AutoAnalyst**: Autonomous data-science agent with sandboxed Python execution (`https://autoanalyst-frontend.vercel.app`).
+  - **EventPass**: Concurrency-safe event ticketing with Paystack integration and atomic locks (`https://event-ticketing-frontend-one.vercel.app`).
+  - **School Result Management System V2.0**: Academic grading engine and RBAC portal (`https://school-result-management-system-one.vercel.app`).
+  - **Interactive Architecture Circuit Inspector**: Interactive breakdown of *Ingress*, *Processing*, *Storage*, and *Concurrency Proof* per system.
 - **Production Polish**:
-  - Real-time API health monitor querying `GET /health` with visual status feedback.
-  - One-click email clipboard copy with instant micro-interaction confirmation.
-  - Open Graph and Twitter Card social preview metadata with an embedded SVG favicon.
+  - Seamless Dark/Light mode theme toggle with localStorage persistence.
+  - Contact form with resilient API fallback, honeypot anti-spam protection, and copy-email micro-interactions.
+  - Full `@media (prefers-reduced-motion: reduce)` compliance.
 
 ### Backend (`/backend`)
 - **FastAPI Microservice**: Fast, typed REST API handling incoming contact form inquiries.
@@ -60,10 +73,32 @@ The repository is structured as a decoupled full-stack project:
 ## Local Development
 
 ### Prerequisites
-- Node.js (or any static HTTP server) for the frontend
-- Python 3.10+ for the backend
+- Node.js 18+ and npm
+- Python 3.10+ (for backend development)
 
-### 1. Run the Backend API
+### 1. Run the Frontend (React + Vite)
+From the repository root:
+```bash
+# Start local Vite development server
+npm run dev
+
+# Or directly from the frontend directory:
+cd frontend
+npm run dev
+```
+Open **`http://localhost:3000`** in your browser.
+
+To create an optimized production build:
+```bash
+npm run build
+```
+
+To preview the production build locally:
+```bash
+npm run preview
+```
+
+### 2. Run the Backend API (Optional)
 ```bash
 cd backend
 
@@ -83,28 +118,20 @@ uvicorn main:app --reload --port 8000
 ```
 Interactive Swagger documentation is available at `http://localhost:8000/docs`.
 
-### 2. Run the Frontend
-You can serve the `frontend/` folder using any static server:
-
-```bash
-# Using npx serve
-npx serve frontend -l 3000
-
-# Or using Python's built-in server
-cd frontend
-python -m http.server 3000
-```
-
-Open `http://localhost:3000` in your browser.
-
 ---
 
 ## Deployment
 
 ### Frontend (Vercel or Netlify)
-1. Link your repository and set the root directory to `frontend`.
-2. Ensure `frontend/config.js` points to your production backend URL (e.g., `https://portfolio-amlc.onrender.com`).
-3. Deploy.
+1. Link your repository.
+2. If setting the Root Directory to `frontend`:
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+3. If building from repository root:
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `frontend/dist`
+4. Deploy!
 
 ### Backend (Render or Railway)
 1. Create a Web Service pointing to your repository with root directory `backend`.
@@ -115,10 +142,3 @@ Open `http://localhost:3000` in your browser.
    - `RESEND_API_KEY`: Your Resend API token.
    - `MAIL_TO`: Destination email address for inquiries.
    - `ADMIN_TOKEN`: Secret token for reading stored inquiries.
-
----
-
-## Security Best Practices
-- Never commit `.env` or database files (`.db`).
-- Rate limiting and honeypot protections prevent basic spam and connection exhaustion.
-- CORS restricts form submissions exclusively to authorized domain origins.
